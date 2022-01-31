@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+import hashlib
+import math
+import os
+import sys
+import time
+
+shift = sys.argv[1]
+repeater = int(input('enter with exponent: [2 ^ exponent] '))
+repeater = int(math.pow(2, repeater))
+speed = (1 / int(math.pow(2, 13)))
+
+for x in range(0, repeater):
+    shift = hashlib.md5(shift.encode('utf-8')).hexdigest()
+    print('{} {}'.format(shift, x))
+    time.sleep(speed)
+
+for x in range(0, repeater):
+    shift = hashlib.md5(shift.encode('utf-8')).hexdigest()
+    print('{} {}'.format(shift, x))
+    time.sleep(speed)
+
+os.system('clear')
+print('-' * 128)
+print(shift)
+print('-' * 128)

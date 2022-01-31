@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+
+
+clear;
+
+cd /development/fdroid/omega/stable && fdroid update -c && fdroid update && fdroid deploy -v
+cd /development/fdroid/omega/testing && fdroid update -c && fdroid update && fdroid deploy -v
+cd /development/fdroid/omega/unstable && fdroid update -c && fdroid update && fdroid deploy -v
+cd /development/fdroid/omega/community && fdroid update -c && fdroid update && fdroid deploy -v

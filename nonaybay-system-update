@@ -1,0 +1,43 @@
+#!/usr/bin/python3
+
+import os
+import sys
+import time
+
+
+
+def clean_screen():
+    time.sleep(0.5)
+    os.system('clear')
+    time.sleep(0.5)
+
+
+
+option_list = [
+    '--assume-yes --fix-broken --fix-missing --fix-policy --no-install-recommends --no-install-suggests --show-progress',
+    '--allow-insecure-repositories --list-cleanup',
+]
+
+command_list = [
+    'update {}'.format(option_list[1]),
+    'upgrade {}'.format(option_list[0]),
+    'full-upgrade {}'.format(option_list[0]),
+    'dist-upgrade {}'.format(option_list[0]),
+    'autoremove {}'.format(option_list[0]),
+    'clean',
+]
+
+check_args = (len(sys.argv) > 1)
+
+if check_args:
+    arg_list = sys.argv[1:]
+    arg_list.sort(reverse=0)
+
+    for argument in arg_list:
+        command_list.insert(1, 'install {} {}'.format(argument, option_list[0]))
+
+for command in command_list:
+    clean_screen()
+    print(command)
+    os.system('sudo apt {}'.format(command))
+    clean_screen()

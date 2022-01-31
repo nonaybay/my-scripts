@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+app="$1"
+
+
+adb shell pm clear ${app}
+adb uninstall ${app}

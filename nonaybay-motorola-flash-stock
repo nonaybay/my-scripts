@@ -1,0 +1,63 @@
+#!/usr/bin/python3
+
+from os import system
+from time import sleep
+
+list_of_commands = [
+    'adb reboot bootloader',
+    'fastboot reboot bootloader',
+    'fastboot reboot fastboot',
+    'fastboot --set-active=a',
+    'fastboot -w',
+    'fastboot flash gpt gpt.bin',
+    'fastboot flash bootloader bootloader.img',
+    'fastboot flash vbmeta vbmeta.img',
+    'fastboot flash radio radio.img',
+    'fastboot flash bluetooth BTFM.bin',
+    'fastboot flash dsp dspso.bin',
+    'fastboot flash logo logo.bin',
+    'fastboot flash boot boot.img',
+    'fastboot flash dtbo dtbo.img',
+    'fastboot flash recovery recovery.img',
+    'fastboot flash super super.img_sparsechunk.0',
+    'fastboot flash super super.img_sparsechunk.1',
+    'fastboot flash super super.img_sparsechunk.2',
+    'fastboot flash super super.img_sparsechunk.3',
+    'fastboot flash super super.img_sparsechunk.4',
+    'fastboot flash super super.img_sparsechunk.5',
+    'fastboot flash super super.img_sparsechunk.6',
+    'fastboot flash super super.img_sparsechunk.7',
+    'fastboot erase partition carrier',
+    'fastboot erase partition userdata',
+    'fastboot erase partition metadata',
+    'fastboot erase partition ddr',
+]
+
+total_step = len(list_of_commands)
+
+def show_progress(current_step, total_step, executing_command):
+    msg_base = 'Current progress:'
+    percentage = round((current_step * 100) / total_step)
+
+    cols = 128
+    check_col = round((percentage * cols) / 100)
+    check_col_char = ('▸' * check_col)
+
+    uncheck_col = (cols - check_col)
+    uncheck_col_char = (' ' * uncheck_col)
+
+    system('clear')
+    print('[{}{}] ! {}%'.format(check_col_char, uncheck_col_char, percentage))
+    print('Command: {}'.format(executing_command))
+    sleep(0.5)
+
+
+
+def execute_command(command, this_step, total_step=total_step):
+    show_progress(this_step, total_step, command)
+    system(command)
+
+
+for cmd in list_of_commands:
+    index = (list.index(list_of_commands, cmd) + 1)
+    execute_command(cmd, index, total_step)

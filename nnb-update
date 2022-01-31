@@ -1,0 +1,40 @@
+#!/usr/bin/python3
+
+import os
+import sys
+import time
+
+
+os.system('clear')
+
+optionlist = [
+    '--assume-yes --fix-broken --fix-missing --fix-policy --no-install-recommends --no-install-suggests --show-progress --verbose-versions',
+    '--allow-insecure-repositories --list-cleanup'
+]
+
+
+commandlist = [
+    'update {}'.format(optionlist[1]),
+    'upgrade {}'.format(optionlist[0]),
+    'full-upgrade {}'.format(optionlist[0]),
+    'dist-upgrade {}'.format(optionlist[0]),
+    'autoremove {}'.format(optionlist[0]),
+    'clean',
+]
+
+
+
+if (len(sys.argv) > 1):
+    arglist = sys.argv[1:]
+    arglist.sort(reverse=True)
+
+    for package in arglist:
+        commandlist.insert(1, 'install {} {}'.format(package, optionlist[0]))
+
+
+
+for command in commandlist:
+    os.system('clear')
+    print('running:\nsudo apt-get {}\n'.format(command))
+    os.system('sudo apt-get {}'.format(command))
+    time.sleep(2)

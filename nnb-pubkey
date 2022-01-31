@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+
+import os
+import sys
+import time
+
+
+
+os.system('clear')
+
+
+
+serverlist = [
+    'hkp://keyserver.ubuntu.com:80',
+]
+
+
+
+if (len(sys.argv) > 1):
+    keylist = sys.argv[1:]
+    keylist.sort(reverse=True)
+
+    for key in keylist:
+        for server in serverlist:
+            os.system('sudo gpg --keyserver {} --recv {}'.format(server, key))
+            os.system('sudo gpg --export --armor {} | sudo apt-key add -'.format(key))
